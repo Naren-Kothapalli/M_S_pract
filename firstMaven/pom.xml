@@ -41,34 +41,55 @@
   </dependencies>
 
   <build>
-    <!-- The plugins section is now active, with plugins configured to run. -->
+  
     <plugins>
-      <!-- This plugin handles Java compilation -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
       </plugin>
-      <!-- This plugin runs the unit tests -->
+      
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.3.0</version>
+        <configuration>
+            <includes>
+                <include>**/*Test.java</include>
+            </includes>
+            <excludes>
+                <exclude>**/IT*.java</exclude>
+            </excludes>
+        </configuration>
       </plugin>
-      <!-- This is the plugin that creates the executable JAR file -->
+      
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.4.2</version>
         <configuration>
           <archive>
             <manifest>
-              <!-- This line is crucial. It specifies the main class of your application -->
+              
               <mainClass>com.naren.learn.firstMaven.App</mainClass>
             </manifest>
           </archive>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.8.0</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
 
-    <!-- The pluginManagement section can remain to manage versions centrally -->
+    
     <pluginManagement>
       <plugins>
         <plugin>
@@ -110,4 +131,19 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <reporting>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-site-plugin</artifactId>
+              <version>3.12.1</version>
+          </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-project-info-reports-plugin</artifactId>
+              <version>3.6.1</version>
+          </plugin>
+      </plugins>
+  </reporting>
 </project>
